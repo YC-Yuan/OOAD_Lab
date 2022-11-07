@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 /**
  * 两种内容：标题，链接
@@ -10,6 +11,7 @@
 int main() {
     std::cout << "Hello, World!" << std::endl;
     return 0;
+
 }
 
 /**
@@ -19,6 +21,5 @@ int main() {
  * 文件级指令：open、save
  * 灵活插件指令：read-bookmark
  */
-class CmdReader {
 
-};
+
