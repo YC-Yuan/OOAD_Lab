@@ -11,8 +11,10 @@
 程序通过一条条接受命令的方式运作，对所有要处理的命令枚举并分类
 
 - 需要支持undo、redo的命令
-  - add
-  - delete
+  - add-title
+  - add-bookmark
+  - delete-title
+  - delete-bookmark
 - 无需undo的命令
   - 与文件系统交互的命令
     - open

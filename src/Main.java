@@ -1,5 +1,7 @@
+import BookMarkTree.Folder;
 import Command.Command;
 import Parser.Parser;
+import org.w3c.dom.Node;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +14,6 @@ public class Main {
 
         // 载入解析器
         List<Parser> parsers = new LinkedList<Parser>();
-        parsers.add(new Parser());
 
         // 主循环
         while (true) {
