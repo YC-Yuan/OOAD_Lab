@@ -15,7 +15,7 @@ public class Main {
         parsers.add(new AddTitleParser("add-title"));
         parsers.add(new ShowTreeParser("show-tree"));
         parsers.add(new AddBookmarkParser("add-bookmark"));
-
+        parsers.add(new DeleteBookmarkParser("delete-bookmark"));
         // 主循环
         while (true) {
             // 输入指令

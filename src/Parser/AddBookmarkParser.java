@@ -32,15 +32,13 @@ public class AddBookmarkParser extends Parser {
                     return new AddBookmarkCommand(name, url, dir);
                 } else {
                     System.out.println("名称参数需要被双引号包含且不为空");
-                    return null;
                 }
             } else {
                 System.out.println("add-bookmark指令第一个参数应被@分割");
-                return null;
             }
         } else {
             System.out.println("add-bookmark指令第二个参数应为at");
-            return null;
         }
+        return null;
     }
 }

@@ -12,11 +12,13 @@ public class Folder extends Node {
     }
 
     @Override
-    public boolean deleteSelf() {
-        if (this.prev==null){
-            return false;
-        }else{
-            return this.prev.getFolders().remove(this);
+    public int deleteSelf() {
+        if (this.prev == null) {
+            return -1;
+        } else {
+            int index = this.prev.getFolders().indexOf(this);
+            this.prev.getFolders().remove(index);
+            return index;
         }
     }
 
@@ -46,11 +48,7 @@ public class Folder extends Node {
         for (Link link : links) {
             if (link.checkName(name)) return link;
         }
-        for (Folder folder : folders) {
-            Link res = folder.getLink(name);
-            if (res != null) return res;
-        }
-        return null;
+        return BookMarkTree.getLink(name, folders);
     }
 
     @Override

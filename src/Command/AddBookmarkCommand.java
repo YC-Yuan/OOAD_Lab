@@ -1,12 +1,11 @@
 package Command;
 
-import BookMarkTree.BookMarkTree;
-import BookMarkTree.Folder;
+import BookMarkTree.*;
 
 public class AddBookmarkCommand extends Command implements Reversible {
-    private String name;
-    private String url;
-    private String directory;
+    private final String name;
+    private final String url;
+    private final String directory;
 
     public AddBookmarkCommand(String name, String url, String directory) {
         super();

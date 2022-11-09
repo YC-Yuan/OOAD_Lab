@@ -14,11 +14,13 @@ public class Link extends Node {
     }
 
     @Override
-    public boolean deleteSelf() {
+    public int deleteSelf() {
         if (this.prev == null) {
-            return false;
+            return -1;
         } else {
-            return this.prev.getLinks().remove(this);
+            int index = this.prev.getLinks().indexOf(this);
+            this.prev.getLinks().remove(index);
+            return index;
         }
     }
 }

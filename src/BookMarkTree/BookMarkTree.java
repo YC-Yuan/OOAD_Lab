@@ -55,12 +55,25 @@ public class BookMarkTree {
         return getFolder(name, roots);
     }
 
-    public static Folder getFolder(String name, List<Folder> folders) {
+    public Link getLink(String name) {
+        return getLink(name, roots);
+    }
+
+    protected static Folder getFolder(String name, List<Folder> folders) {
         for (Folder folder : folders) {
             if (folder.checkName(name)) return folder;
         }
         for (Folder folder : folders) {
             Folder res = folder.getFolder(name);
+            if (res != null) return res;
+        }
+        return null;
+    }
+
+    protected static Link getLink(String name, List<Folder> folders) {
+        for (Folder folder : folders
+        ) {
+            Link res = folder.getLink(name);
             if (res != null) return res;
         }
         return null;
