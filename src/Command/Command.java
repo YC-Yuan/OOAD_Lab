@@ -1,7 +1,5 @@
 package Command;
 
-public class Command {
-    public void execute() {
-
-    }
+public abstract class Command {
+    abstract public boolean execute();
 }

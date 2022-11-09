@@ -1,7 +1,6 @@
-import BookMarkTree.Folder;
 import Command.Command;
 import Parser.Parser;
-import org.w3c.dom.Node;
+import Parser.AddTitleParser;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,26 +13,27 @@ public class Main {
 
         // 载入解析器
         List<Parser> parsers = new LinkedList<Parser>();
+        parsers.add(new AddTitleParser("add-title"));
 
         // 主循环
         while (true) {
             // 输入指令
             String input = sc.nextLine();
             // 解析指令，获取命令
-            boolean isCommandValid = false;
+            Command command = null;
             for (Parser parser : parsers
             ) {
-                Command command = parser.parse(input);
+                command = parser.parse(input);
                 if (command != null) {
-                    isCommandValid = true;
                     break;
                 }
             }
-            if (isCommandValid) {
+            if (command != null) {
                 // 执行命令
+                command.execute();
             } else {
                 // 无效命令
-                System.out.println("无效指令，输入help查看指令列表");
+                System.out.println("无效指令，请重新输入");
             }
         }
     }

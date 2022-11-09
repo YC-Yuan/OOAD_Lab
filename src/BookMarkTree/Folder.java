@@ -18,25 +18,35 @@ public class Folder extends Node {
         nodes.add(node);
     }
 
-    public boolean deleteNode(String name, Class c) {
-        // 检查孩子
+    // 在文件夹中搜索Node
+    public Node getNode(String name, Class c) {
         for (Node node : nodes
         ) {
-            // 找到了，删掉
-            if (node.getName().equals(name) && node.getClass() == c) {
-                nodes.remove(node);
-                return true;
-            }
+            if (node.checkSelf(name, c)) return node;
         }
-        // 逐级检查
-        for (Node node : nodes) {
-            if (node instanceof Folder) {
-                Folder folder = (Folder) node;
-                boolean hasDeleted = folder.deleteNode(name, c);
-                if (hasDeleted) return true;
-            }
+        for (Folder folder : getFolders()) {
+            Node res = folder.getNode(name, c);
+            if (res != null) return res;
         }
-        return false;
+        return null;
+    }
+
+    // 获取Folder下面的Folder
+    public List<Folder> getFolders() {
+        List<Folder> res = new LinkedList<>();
+        for (Node node : nodes
+        ) {
+            if (node instanceof Folder) res.add((Folder) node);
+        }
+        return res;
+    }
+
+    public boolean deleteNode(String name, Class c) {
+        Node node = getNode(name, c);
+        if (node == null) return false;
+        else {
+            return node.deleteSelf();
+        }
     }
 
     @Override
@@ -44,4 +54,6 @@ public class Folder extends Node {
         int level = getLevel();
         return "#".repeat(level) + " " + name + "\n";
     }
+
+
 }
