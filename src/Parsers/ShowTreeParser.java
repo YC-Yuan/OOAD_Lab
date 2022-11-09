@@ -1,6 +1,6 @@
-package Parser;
+package Parsers;
 
-import Command.*;
+import Commands.*;
 
 public class ShowTreeParser extends Parser {
     public ShowTreeParser(String keyword) {

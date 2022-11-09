@@ -1,6 +1,7 @@
-package Command;
+package Commands.Reverse;
 
 import BookMarkTree.*;
+import Commands.Command;
 
 public class AddBookmarkCommand extends Command implements Reversible {
     private final String name;
@@ -16,6 +17,7 @@ public class AddBookmarkCommand extends Command implements Reversible {
 
     private int index = -1;
     private Folder destination = null;
+    private Link self = null;
 
     @Override
     public boolean execute() {
@@ -23,16 +25,18 @@ public class AddBookmarkCommand extends Command implements Reversible {
         destination = bmt.getFolder(directory);
         index = bmt.addLink(name, url, destination);
         if (index == -1) System.out.println("添加失败，文件夹不存在");
+        else executeWithRecord();
         return index != -1;
     }
 
     @Override
     public void undo() {
+        self = destination.getLinks().get(index);
         destination.getLinks().remove(index);
     }
 
     @Override
     public void redo() {
-        execute();
+        destination.getLinks().add(index, self);
     }
 }

@@ -1,6 +1,7 @@
-package Parser;
+package Parsers;
 
-import Command.*;
+import Commands.*;
+import Commands.Reverse.DeleteBookmarkCommand;
 
 public class DeleteBookmarkParser extends Parser {
 

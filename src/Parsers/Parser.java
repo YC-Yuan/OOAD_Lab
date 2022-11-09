@@ -1,6 +1,6 @@
-package Parser;
+package Parsers;
 
-import Command.Command;
+import Commands.Command;
 
 public abstract class Parser {
     public Parser(String keyword) {

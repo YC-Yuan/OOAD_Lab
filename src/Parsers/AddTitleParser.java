@@ -1,7 +1,7 @@
-package Parser;
+package Parsers;
 
-import Command.Command;
-import Command.AddTitleCommand;
+import Commands.Command;
+import Commands.Reverse.AddTitleCommand;
 
 public class AddTitleParser extends Parser {
     public AddTitleParser(String keyword) {

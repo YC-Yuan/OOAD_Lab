@@ -1,4 +1,4 @@
-package Command;
+package Commands;
 
 import BookMarkTree.BookMarkTree;
 

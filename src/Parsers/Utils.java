@@ -1,4 +1,4 @@
-package Parser;
+package Parsers;
 
 public class Utils {
     public static boolean isQuoted(String str) {

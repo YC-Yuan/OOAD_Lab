@@ -1,5 +1,5 @@
-import Command.Command;
-import Parser.*;
+import Commands.Command;
+import Parsers.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +16,8 @@ public class Main {
         parsers.add(new ShowTreeParser("show-tree"));
         parsers.add(new AddBookmarkParser("add-bookmark"));
         parsers.add(new DeleteBookmarkParser("delete-bookmark"));
+        parsers.add(new UndoParser("undo"));
+        parsers.add(new RedoParser("redo"));
         // 主循环
         while (true) {
             // 输入指令

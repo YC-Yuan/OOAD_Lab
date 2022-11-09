@@ -1,6 +1,7 @@
-package Parser;
+package Parsers;
 
-import Command.*;
+import Commands.*;
+import Commands.Reverse.AddBookmarkCommand;
 
 public class AddBookmarkParser extends Parser {
     public AddBookmarkParser(String keyword) {

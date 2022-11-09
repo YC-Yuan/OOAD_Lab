@@ -34,6 +34,15 @@ public class BookMarkTree {
         return roots.size() - 1;
     }
 
+    public int addRootTitle(int index, Folder title) {
+        roots.add(index, title);
+        return index;
+    }
+
+    public Folder getRootTitle(int index) {
+        return roots.get(index);
+    }
+
     public void deleteRootTitle(int index) {
         roots.remove(index);
     }

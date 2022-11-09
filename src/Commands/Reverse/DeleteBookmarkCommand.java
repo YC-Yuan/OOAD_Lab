@@ -1,6 +1,7 @@
-package Command;
+package Commands.Reverse;
 
 import BookMarkTree.*;
+import Commands.Command;
 
 public class DeleteBookmarkCommand extends Command implements Reversible {
 
@@ -23,6 +24,7 @@ public class DeleteBookmarkCommand extends Command implements Reversible {
         target = link;
         destination = link.getPrev();
         index = link.deleteSelf();
+        if (index != -1) executeWithRecord();
         return index != -1;
     }
 
