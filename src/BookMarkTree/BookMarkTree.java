@@ -9,6 +9,15 @@ public class BookMarkTree {
     private BookMarkTree() {
     }
 
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        for (Folder f : roots
+        ) {
+            res.append(f.toString());
+        }
+        return res.toString();
+    }
+
     public static BookMarkTree getInstance() {
         if (instance == null) {
             instance = new BookMarkTree();
@@ -16,7 +25,7 @@ public class BookMarkTree {
         return instance;
     }
 
-    private List<Folder> roots = new LinkedList<>();
+    private final List<Folder> roots = new LinkedList<>();
 
     // 添加一级标题,返回添加位置的index
     public int addRootTitle(String name) {
@@ -32,19 +41,27 @@ public class BookMarkTree {
     // 添加标题到指定位置,返回指定位置
     public int addTitle(String name, Folder folder) {
         if (folder == null) return -1;
-        folder.addNode(new Folder(name));
-        return folder.getNodes().size() - 1;
+        folder.addFolder(new Folder(name));
+        return folder.getFolders().size() - 1;
+    }
+
+    public int addLink(String name, String url, Folder folder) {
+        if (folder == null) return -1;
+        folder.addLink(new Link(name, url));
+        return folder.getLinks().size() - 1;
     }
 
     public Folder getFolder(String name) {
-        for (Folder folder : roots
-        ) {
+        return getFolder(name, roots);
+    }
+
+    public static Folder getFolder(String name, List<Folder> folders) {
+        for (Folder folder : folders) {
             if (folder.checkName(name)) return folder;
         }
-        for (Folder folder : roots
-        ) {
-            Node node = folder.getNode(name, Folder.class);
-            if (node != null) return (Folder) node;
+        for (Folder folder : folders) {
+            Folder res = folder.getFolder(name);
+            if (res != null) return res;
         }
         return null;
     }

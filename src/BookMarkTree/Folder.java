@@ -4,56 +4,65 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Folder extends Node {
-    protected List<Node> nodes = new LinkedList<Node>();
+    protected List<Link> links = new LinkedList<>();
+    protected List<Folder> folders = new LinkedList<>();
 
     public Folder(String name) {
         super(name);
     }
 
-    public List<Node> getNodes() {
-        return nodes;
-    }
-
-    public void addNode(Node node) {
-        nodes.add(node);
-    }
-
-    // 在文件夹中搜索Node
-    public Node getNode(String name, Class c) {
-        for (Node node : nodes
-        ) {
-            if (node.checkSelf(name, c)) return node;
+    @Override
+    public boolean deleteSelf() {
+        if (this.prev==null){
+            return false;
+        }else{
+            return this.prev.getFolders().remove(this);
         }
-        for (Folder folder : getFolders()) {
-            Node res = folder.getNode(name, c);
+    }
+
+    public List<Folder> getFolders() {
+        return folders;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void addFolder(Folder folder) {
+        folder.setPrev(this);
+        folders.add(folder);
+    }
+
+    public void addLink(Link link) {
+        link.setPrev(this);
+        links.add(link);
+    }
+
+    public Folder getFolder(String name) {
+        return BookMarkTree.getFolder(name, folders);
+    }
+
+    public Link getLink(String name) {
+        for (Link link : links) {
+            if (link.checkName(name)) return link;
+        }
+        for (Folder folder : folders) {
+            Link res = folder.getLink(name);
             if (res != null) return res;
         }
         return null;
     }
 
-    // 获取Folder下面的Folder
-    public List<Folder> getFolders() {
-        List<Folder> res = new LinkedList<>();
-        for (Node node : nodes
-        ) {
-            if (node instanceof Folder) res.add((Folder) node);
-        }
-        return res;
-    }
-
-    public boolean deleteNode(String name, Class c) {
-        Node node = getNode(name, c);
-        if (node == null) return false;
-        else {
-            return node.deleteSelf();
-        }
-    }
-
     @Override
     public String toString() {
         int level = getLevel();
-        return "#".repeat(level) + " " + name + "\n";
+        StringBuilder res = new StringBuilder("#".repeat(level) + " " + name + "\n");
+        for (Link link : links) {
+            res.append(link.toString());
+        }
+        for (Folder folder : folders) {
+            res.append(folder.toString());
+        }
+        return res.toString();
     }
-
-
 }

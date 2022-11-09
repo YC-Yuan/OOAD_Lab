@@ -12,4 +12,13 @@ public class Link extends Node {
     public String toString() {
         return "[" + name + "](" + url + ")\n";
     }
+
+    @Override
+    public boolean deleteSelf() {
+        if (this.prev == null) {
+            return false;
+        } else {
+            return this.prev.getLinks().remove(this);
+        }
+    }
 }

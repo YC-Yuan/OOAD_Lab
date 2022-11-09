@@ -4,7 +4,7 @@ import BookMarkTree.BookMarkTree;
 import BookMarkTree.Folder;
 
 public class AddTitleCommand extends Command implements Reversible {
-    private String name = "";
+    private String name;
     private String directory = null;
 
     public AddTitleCommand(String name) {
@@ -48,7 +48,7 @@ public class AddTitleCommand extends Command implements Reversible {
             bmt.deleteRootTitle(index);
         } else {
             // 在指定位置删除
-            destination.getNodes().remove(index);
+            destination.getFolders().remove(index);
         }
     }
 

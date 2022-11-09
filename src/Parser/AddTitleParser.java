@@ -5,7 +5,7 @@ import Command.AddTitleCommand;
 
 public class AddTitleParser extends Parser {
     public AddTitleParser(String keyword) {
-        this.keyWord = keyword;
+        super(keyword);
     }
 
     @Override

@@ -3,7 +3,11 @@ package Parser;
 import Command.Command;
 
 public abstract class Parser {
-    protected String keyWord = "";
+    public Parser(String keyword) {
+        this.keyWord = keyword;
+    }
+
+    protected String keyWord;
 
     // 进行通用的检测，继承者不需要重写
     public Command parse(String cmd) {

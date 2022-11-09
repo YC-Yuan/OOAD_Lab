@@ -1,6 +1,5 @@
 import Command.Command;
-import Parser.Parser;
-import Parser.AddTitleParser;
+import Parser.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,8 +11,10 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         // 载入解析器
-        List<Parser> parsers = new LinkedList<Parser>();
+        List<Parser> parsers = new LinkedList<>();
         parsers.add(new AddTitleParser("add-title"));
+        parsers.add(new ShowTreeParser("show-tree"));
+        parsers.add(new AddBookmarkParser("add-bookmark"));
 
         // 主循环
         while (true) {
