@@ -39,12 +39,26 @@ public class BookMarkTree {
         return index;
     }
 
+    public Folder getRootTitle(String name) {
+        for (Folder folder : roots
+        ) {
+            if (folder.checkName(name)) {
+                return folder;
+            }
+        }
+        return null;
+    }
+
     public Folder getRootTitle(int index) {
         return roots.get(index);
     }
 
     public void deleteRootTitle(int index) {
         roots.remove(index);
+    }
+
+    public List<Folder> getRoots() {
+        return roots;
     }
 
     // 添加标题到指定位置,返回指定位置

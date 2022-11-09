@@ -2,6 +2,7 @@ package Parsers;
 
 import Commands.Command;
 import Commands.Reverse.AddTitleCommand;
+import Utils.Utils;
 
 public class AddTitleParser extends Parser {
     public AddTitleParser(String keyword) {

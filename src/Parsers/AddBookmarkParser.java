@@ -2,6 +2,7 @@ package Parsers;
 
 import Commands.*;
 import Commands.Reverse.AddBookmarkCommand;
+import Utils.Utils;
 
 public class AddBookmarkParser extends Parser {
     public AddBookmarkParser(String keyword) {

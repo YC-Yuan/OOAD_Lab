@@ -1,3 +1,4 @@
+import BookMarkTree.BookMarkTree;
 import Commands.Command;
 import Parsers.*;
 
@@ -16,8 +17,11 @@ public class Main {
         parsers.add(new ShowTreeParser("show-tree"));
         parsers.add(new AddBookmarkParser("add-bookmark"));
         parsers.add(new DeleteBookmarkParser("delete-bookmark"));
+        parsers.add(new DeleteTitleParser("delete-title"));
         parsers.add(new UndoParser("undo"));
         parsers.add(new RedoParser("redo"));
+        parsers.add(new SaveParser("save"));
+
         // 主循环
         while (true) {
             // 输入指令
@@ -36,7 +40,7 @@ public class Main {
                 command.execute();
             } else {
                 // 无效命令
-                System.out.println("无效指令，请重新输入");
+                System.out.println("无效指令，请检查输入并重试");
             }
         }
     }
