@@ -23,4 +23,9 @@ public class Link extends Node {
             return index;
         }
     }
+
+    @Override
+    public String getTreeName() {
+        return "\"" + name + "\"";
+    }
 }

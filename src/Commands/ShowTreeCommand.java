@@ -1,16 +1,25 @@
 package Commands;
 
-import BookMarkTree.BookMarkTree;
+import BookMarkTree.*;
+import Utils.TreePrinter;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class ShowTreeCommand extends Command {
     @Override
     public boolean execute() {
         BookMarkTree bmt = BookMarkTree.getInstance();
-        // 打印的并不是show-tree
-
-        System.out.print(bmt.toString());
+        TreePrinter tp = new TreePrinter();
+        List<Node> nodes = new LinkedList<>();
+        for (Folder f : bmt.getRoots()
+        ) {
+            nodes.addAll(f.getAll());
+        }
+        for (Node node : nodes) {
+            tp.addNode(node.getLevel(), node.getTreeName());
+        }
+        System.out.print(tp);
         return true;
     }
-
-    // 按层级打印内容
 }

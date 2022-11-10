@@ -20,6 +20,7 @@ public class DeleteBookmarkCommand extends Command implements Reversible {
     @Override
     public boolean execute() {
         BookMarkTree bmt = BookMarkTree.getInstance();
+        // 找一个link
         Link link = bmt.getLink(name);
         target = link;
         destination = link.getPrev();

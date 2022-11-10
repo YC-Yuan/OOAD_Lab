@@ -24,6 +24,10 @@ public abstract class Node {
         return this.name.equals(name);
     }
 
+    public String getTreeName() {
+        return name;
+    }
+
     // 从父亲中删除自己
     abstract public int deleteSelf();
 

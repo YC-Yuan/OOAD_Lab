@@ -25,6 +25,10 @@ public class BookMarkTree {
         return instance;
     }
 
+    public static void refresh() {
+        instance = new BookMarkTree();
+    }
+
     private final List<Folder> roots = new LinkedList<>();
 
     // 添加一级标题,返回添加位置的index

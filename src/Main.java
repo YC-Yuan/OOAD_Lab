@@ -1,4 +1,3 @@
-import BookMarkTree.BookMarkTree;
 import Commands.Command;
 import Parsers.*;
 
@@ -21,7 +20,7 @@ public class Main {
         parsers.add(new UndoParser("undo"));
         parsers.add(new RedoParser("redo"));
         parsers.add(new SaveParser("save"));
-
+        parsers.add(new OpenParser("open"));
         // 主循环
         while (true) {
             // 输入指令

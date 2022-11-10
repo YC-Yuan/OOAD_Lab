@@ -7,6 +7,10 @@ import java.util.List;
 
 // 以确定的方式打印树
 public class TreePrinter {
+    private static final String space = "   ";
+    private static final String stick = "│  ";
+    private static final String prefixEnd = "└──";
+    private static final String prefixMiddle = "├──";
     private final List<Integer> levels = new LinkedList<>();
     private final List<String> contents = new LinkedList<>();
     private final List<Boolean> isEnd = new ArrayList<>();
@@ -26,10 +30,31 @@ public class TreePrinter {
     }
 
     public String toString() {
-        // 记录了每个等级在第几行结束（索引和结果都从0而不是1开始）
-        int[] levelEndIndex = getLevelEndIndex();
+        refreshIsEnd();
         StringBuilder sb = new StringBuilder();
+        int maxLevel = getMaxLevel();
+        boolean[] flags = new boolean[maxLevel]; // 存储对应等级处是否需要|
         // 开始打印，i是行数
+        for (int i = 0; i < levels.size(); i++) {
+            int level = levels.get(i);
+            // j相当于每一行的列，逐列考虑当前是否需要用竖杠
+            for (int j = 0; j < level - 1; j++) {
+                if (flags[j]) {
+                    sb.append(stick);
+                } else {
+                    sb.append(space);
+                }
+            }
+            // 考虑j=level-1这一列，即内容前的最后一列：是end，则└──，不是end，则├──
+            if (isEnd.get(i)) {
+                sb.append(prefixEnd);
+                flags[level - 1] = false;
+            } else {
+                sb.append(prefixMiddle);
+                flags[level - 1] = true;
+            }
+            sb.append(contents.get(i)).append("\n");
+        }
         return sb.toString();
     }
 
@@ -57,32 +82,19 @@ public class TreePrinter {
                 flags[curFlag] = false;
             }
         }
-        System.out.println(isEnd);
-    }
-
-    private int[] getLevelEndIndex() {
-        // 记录每个等级结束的位置
-        int maxLevel = getMaxLevel();
-        // 所有都在0结束
-        int[] levelEndIndex = new int[maxLevel];
-        for (int i = levels.size() - 1; i >= 0; i--) {
-            int level = levels.get(i);
-            // 让i处的level对应的结束为止记录为现有值和i的最大值
-            levelEndIndex[level - 1] = Math.max(i, levelEndIndex[level - 1]);
-        }
-        return levelEndIndex;
     }
 
     public static void main(String[] args) {
         TreePrinter tp = new TreePrinter();
         tp.addNode(1, "aa");
-        tp.addNode(2, "bb");
-        tp.addNode(1, "bb");
-        tp.addNode(2, "bb-bb");
-        tp.addNode(2, "bb-bb");
-        tp.addNode(3, "bb-bb");
-        tp.addNode(2, "bb-bb");
-        tp.addNode(1, "aha");
-        tp.refreshIsEnd();
+//        tp.addNode(2, "bb");
+//        tp.addNode(1, "bb");
+//        tp.addNode(2, "bb-bb");
+//        tp.addNode(2, "bb-bb");
+//        tp.addNode(3, "bb-bb");
+//        tp.addNode(4, "bb-bb");
+//        tp.addNode(2, "bb-bb");
+//        tp.addNode(1, "aha");
+        System.out.println(tp);
     }
 }

@@ -51,6 +51,17 @@ public class Folder extends Node {
         return BookMarkTree.getLink(name, folders);
     }
 
+    public List<Node> getAll() {
+        List<Node> res = new LinkedList<>();
+        res.add(this);
+        res.addAll(links);
+        for (Folder f : folders
+        ) {
+            res.addAll(f.getAll());
+        }
+        return res;
+    }
+
     @Override
     public String toString() {
         int level = getLevel();
