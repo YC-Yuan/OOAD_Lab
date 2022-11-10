@@ -1,5 +1,6 @@
 package BookMarkTree;
 
+import java.awt.print.Book;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,15 +41,17 @@ public class Folder extends Node {
         links.add(link);
     }
 
-    public Folder getFolder(String name) {
+    public List<Folder> getFolder(String name) {
         return BookMarkTree.getFolder(name, folders);
     }
 
-    public Link getLink(String name) {
+    public List<Link> getLink(String name) {
+        List<Link> res = new LinkedList<>();
         for (Link link : links) {
-            if (link.checkName(name)) return link;
+            if (link.checkName(name)) res.add(link);
         }
-        return BookMarkTree.getLink(name, folders);
+        res.addAll(BookMarkTree.getLink(name, folders));
+        return res;
     }
 
     public List<Node> getAll() {

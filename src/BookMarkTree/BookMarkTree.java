@@ -78,31 +78,31 @@ public class BookMarkTree {
         return folder.getLinks().size() - 1;
     }
 
-    public Folder getFolder(String name) {
+    public List<Folder> getFolder(String name) {
         return getFolder(name, roots);
     }
 
-    public Link getLink(String name) {
+    public List<Link> getLink(String name) {
         return getLink(name, roots);
     }
 
-    protected static Folder getFolder(String name, List<Folder> folders) {
+    protected static List<Folder> getFolder(String name, List<Folder> folders) {
+        List<Folder> res = new LinkedList<>();
         for (Folder folder : folders) {
-            if (folder.checkName(name)) return folder;
+            if (folder.checkName(name)) res.add(folder);
         }
         for (Folder folder : folders) {
-            Folder res = folder.getFolder(name);
-            if (res != null) return res;
+            res.addAll(folder.getFolder(name));
         }
-        return null;
+        return res;
     }
 
-    protected static Link getLink(String name, List<Folder> folders) {
+    protected static List<Link> getLink(String name, List<Folder> folders) {
+        List<Link> res = new LinkedList<>();
         for (Folder folder : folders
         ) {
-            Link res = folder.getLink(name);
-            if (res != null) return res;
+            res.addAll(folder.getLink(name));
         }
-        return null;
+        return res;
     }
 }

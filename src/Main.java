@@ -21,6 +21,8 @@ public class Main {
         parsers.add(new RedoParser("redo"));
         parsers.add(new SaveParser("save"));
         parsers.add(new OpenParser("open"));
+        parsers.add(new OpenParser("bookmark"));
+        parsers.add(new ReadBookmarkParser("read-bookmark"));
         // 主循环
         while (true) {
             // 输入指令

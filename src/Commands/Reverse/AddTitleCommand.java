@@ -4,6 +4,8 @@ import BookMarkTree.BookMarkTree;
 import BookMarkTree.Folder;
 import Commands.Command;
 
+import java.util.List;
+
 public class AddTitleCommand extends Command implements Reversible {
     private final String name;
     private String directory = null;
@@ -30,7 +32,12 @@ public class AddTitleCommand extends Command implements Reversible {
             return true;
         } else {
             // 在指定位置添加
-            destination = bmt.getFolder(directory);
+            List<Folder> folders=bmt.getFolder(directory);
+            if (folders.isEmpty()){
+                destination=null;
+            }else{
+                destination= folders.get(0);
+            }
             index = bmt.addTitle(name, destination);
             if (index == -1) System.out.println("添加失败，文件夹不存在");
             else executeWithRecord();

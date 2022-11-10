@@ -1,6 +1,7 @@
 package BookMarkTree;
 
 public class Link extends Node {
+    private boolean hasRead = false;
     protected String url;
 
     public Link(String name, String url) {
@@ -26,6 +27,12 @@ public class Link extends Node {
 
     @Override
     public String getTreeName() {
-        return "\"" + name + "\"";
+        String res = "\"";
+        if (hasRead) res += "*";
+        return res + name + "\"";
+    }
+
+    public void read() {
+        hasRead = true;
     }
 }

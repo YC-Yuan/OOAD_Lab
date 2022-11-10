@@ -3,6 +3,8 @@ package Commands.Reverse;
 import BookMarkTree.*;
 import Commands.Command;
 
+import java.util.List;
+
 public class AddBookmarkCommand extends Command implements Reversible {
     private final String name;
     private final String url;
@@ -22,7 +24,13 @@ public class AddBookmarkCommand extends Command implements Reversible {
     @Override
     public boolean execute() {
         BookMarkTree bmt = BookMarkTree.getInstance();
-        destination = bmt.getFolder(directory);
+        // 在指定位置添加
+        List<Folder> folders = bmt.getFolder(directory);
+        if (folders.isEmpty()) {
+            destination = null;
+        } else {
+            destination = folders.get(0);
+        }
         index = bmt.addLink(name, url, destination);
         if (index == -1) System.out.println("添加失败，文件夹不存在");
         else executeWithRecord();

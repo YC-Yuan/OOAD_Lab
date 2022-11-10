@@ -1,12 +1,10 @@
 package Commands;
 
 import BookMarkTree.*;
+import Utils.FileManager;
 
 import java.awt.print.Book;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -24,7 +22,11 @@ public class OpenCommand extends Command {
         BookMarkTree.refresh();
         BookMarkTree bmt = BookMarkTree.getInstance();
         try {
-            reader = new BufferedReader(new FileReader(path));
+            File file = new File(path);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            reader = new BufferedReader(new FileReader(file));
             String str;
             List<Folder> folderList = new ArrayList<>();
             Folder lastFolder = new Folder("");
@@ -56,6 +58,7 @@ public class OpenCommand extends Command {
                     lastFolder.getLinks().add(l);
                 }
             }
+            FileManager.getInstance().setPath(path);
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("文件读取出错，请检查路径");

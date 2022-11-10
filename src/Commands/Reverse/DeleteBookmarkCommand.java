@@ -3,6 +3,9 @@ package Commands.Reverse;
 import BookMarkTree.*;
 import Commands.Command;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class DeleteBookmarkCommand extends Command implements Reversible {
 
     private final String name;
@@ -12,19 +15,25 @@ public class DeleteBookmarkCommand extends Command implements Reversible {
         this.name = name;
     }
 
-    private int index = -1;
-    private Folder destination = null;
-    private Link target = null;
+    private final List<Integer> indexes = new LinkedList<>();
+    private final List<Folder> destinations = new LinkedList<>();
+    private final List<Link> targets = new LinkedList<>();
 
 
     @Override
     public boolean execute() {
         BookMarkTree bmt = BookMarkTree.getInstance();
         // 找一个link
-        Link link = bmt.getLink(name);
-        target = link;
-        destination = link.getPrev();
-        index = link.deleteSelf();
+        List<Link> links = bmt.getLink(name);
+        int index = -1;
+        for (Link l : links
+        ) {
+            targets.add(l);
+            destinations.add(l.getPrev());
+            int outcome = l.deleteSelf();
+            indexes.add(outcome);
+            index = Math.max(index, outcome);
+        }
         if (index != -1) executeWithRecord();
         return index != -1;
     }
@@ -32,11 +41,20 @@ public class DeleteBookmarkCommand extends Command implements Reversible {
     // 把link加回到特定位置
     @Override
     public void undo() {
-        destination.getLinks().add(index, target);
+        for (int i = 0; i < indexes.size(); i++) {
+            int index = indexes.get(i);
+            Folder destination = destinations.get(i);
+            Link target = targets.get(i);
+            destination.getLinks().add(index, target);
+        }
     }
 
     @Override
     public void redo() {
-        destination.getLinks().remove(index);
+        for (int i = 0; i < indexes.size(); i++) {
+            int index = indexes.get(i);
+            Folder destination = destinations.get(i);
+            destination.getLinks().remove(index);
+        }
     }
 }
