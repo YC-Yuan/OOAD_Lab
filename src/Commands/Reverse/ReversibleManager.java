@@ -18,6 +18,10 @@ public class ReversibleManager {
         return instance;
     }
 
+    public static void refresh() {
+        instance = new ReversibleManager();
+    }
+
     public void record(Reversible r) {
         undo.push(r);
         redo.clear();

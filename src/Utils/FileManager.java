@@ -21,6 +21,10 @@ public class FileManager {
         return instance;
     }
 
+    public static void refresh() {
+        instance = new FileManager();
+    }
+
     public void setPath(String path) {
         this.path = path;
     }
