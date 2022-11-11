@@ -5,9 +5,13 @@ import java.io.IOException;
 
 public class FileManager {
     private static FileManager instance;
-    private String path = "./test.bmk";
+    private String path = null;
 
     private FileManager() {
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public static FileManager getInstance() {
